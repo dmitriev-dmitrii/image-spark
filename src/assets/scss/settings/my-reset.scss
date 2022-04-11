@@ -1,0 +1,101 @@
+html
+{
+scroll-behavior: smooth;
+font-size: 62.5%;
+}
+
+* {
+	box-sizing: border-box;
+	&::before,
+	&::after {
+		box-sizing: border-box;
+	}
+
+	outline-color: $mainAccentColor;
+	outline-width: .3rem;
+	outline-offset:.2rem;
+	
+	// transition: background-color .1s linear;
+	
+}
+
+
+button,summary
+{
+cursor: pointer;
+}
+
+button[disabled]
+{
+	opacity: 0.5 !important;
+	cursor: default !important;
+	&:hover,
+	&:active,
+	&:focus {
+		opacity: 0.5 !important;
+		cursor: default !important;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li {
+	font-weight: inherit;
+	font-size: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+}
+p {
+	padding: 0;
+	margin: 0;
+}
+a {
+	color: currentColor;
+	text-decoration: none;
+}
+
+
+picture img
+{
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+
+input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+input::-moz-placeholder                {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+input:-moz-placeholder                 {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+input:-ms-input-placeholder            {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+
+input:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.2s ease;}
+input:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.2s ease;}
+input:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.2s ease;}
+input:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.2s ease;}
+
+textarea::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+textarea::-moz-placeholder                {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+textarea:-moz-placeholder                 {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+textarea:-ms-input-placeholder            {opacity: 1; transition: opacity 0.2s linear; color:$minorTxtColor;}
+
+textarea:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.2s linear;}
+textarea:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.2s linear;}
+textarea:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.2s linear;}
+textarea:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.2s linear;}
+
+input[type="date"] {
+	cursor: pointer;
+}
