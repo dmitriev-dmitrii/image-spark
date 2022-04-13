@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "webpack-dev-server --env mode=development  ",
     "pre-build": "webpack --env  mode=development  ",
-    "build": "webpack --env  mode=production "
+    "build": "webpack --env  mode=production ",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack --env  mode=production"
   },
   "keywords": [],
   "author": "dmitriev-dmitrii",

@@ -8,9 +8,9 @@
       </p>
       <transition-group name="users-list" class="users-list" tag="ul">
         <user-card v-for="user in users" :key="user.id+user.login" :user="user" />
-        <li key="observer" id="observer" ref="observer">
+        <li key="observer" id="observer" class="title" ref="observer">
           <app-spinner v-show="loading">Loading</app-spinner>
-          <p class="title" v-show="users.length == totalResults"> End of data </p>
+          <p  v-show="users.length == totalResults"> End of data </p>
         </li>
       </transition-group>
     </div>
