@@ -1,12 +1,17 @@
 <template>
   <li class="user-card__wrapper">
     <router-link
-      :to="`/user/${user.login}`"
-      class="user-card"
+      :to="`/${user.login}`"
       :title="`go to ${user.login} page`"
+      class="user-card"
     >
       <img class="user-card__avatar" :src="user.avatar_url" :alt="user.login" />
-      <h3 class="user-card__login" v-html="user.login" > </h3>
+      <span>
+          <h3 class="user-card__login" v-html="user.login" > </h3>
+          <p>reg-date : {{user.created_at | formatDate}}</p>
+        
+      </span>
+
       <p class="user-card__repos"><abbr title="repository count ">repos:</abbr> <span class="user-card__repos-value">&nbsp;{{user.public_repos}}</span></p>
     </router-link>
   </li>
@@ -19,7 +24,7 @@ export default {
       type: Object,
       default :{
         avatar_url:'',
-        login : '&nbsp;',
+        login : 'no name :(',
         public_repos:0
       }
     },

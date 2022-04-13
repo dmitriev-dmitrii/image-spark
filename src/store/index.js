@@ -3,10 +3,16 @@ import Vue from "vue";
 import Vuex from "vuex";
 import router from '@/router'
 import toStorage from '@/toStorage'
+import user from '@/store/user'
 Vue.use(Vuex);
 
-export default new Vuex.Store({
 
+
+
+export default new Vuex.Store({
+	modules: {
+		user,
+	},
 	state: {
 		users: [],
 		incompleteResults: false,
@@ -37,6 +43,9 @@ export default new Vuex.Store({
 	actions: {
 		getUsers: async (context) => {
 			try {
+				if (context.state.incompleteResults) {
+					return false
+				}
 				const req =
 					await axios.get(`https://api.github.com/search/users?q=${context.state.queryData.searchQuery}in:login&page=${context.state.queryData.pageCounter + 1}&sort=repositories&order=${context.state.queryData.order}&per_page=10`)
 

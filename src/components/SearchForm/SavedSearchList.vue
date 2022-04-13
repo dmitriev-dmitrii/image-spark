@@ -1,10 +1,9 @@
 
 <template>
-<div>
+<div v-show="savedSearches.length">
 <p>Yours last 7 succes searches : </p>
-
-<ul @click.prevent="restoreSearch" name="saved-seacrh"  tag="ul">
-  <li v-for="(item, index) in savedSearches" :data-saved-state-index="index" :key="index">
+<ul @click.prevent="restoreSearch" >
+  <li v-for="(item, index) in savedSearches" :data-saved-state-index="index" :key="item.queryData.searchQuery+item.queryData.order">
     <a href="#" title="restore search data">
       <p>req:&nbsp; {{item.queryData.searchQuery}} </p>
       <p>sort:&nbsp;{{item.queryData.order}}  </p> 
@@ -31,6 +30,8 @@ if (!!e.target.closest('li')) {
   const currentIndex = e.target.closest('li').dataset.savedStateIndex
   this.$store.commit('mutateUsers',this.savedSearches[currentIndex].users)
   this.$store.commit('mutateQueryData',this.savedSearches[currentIndex].queryData)
+  this.$store.commit('mutateTotalresults', this.savedSearches[currentIndex].totalResults)
+	this.$store.commit('mutateIncompleteResults', this.savedSearches[currentIndex].incompleteResults)
 }
 } ,
 

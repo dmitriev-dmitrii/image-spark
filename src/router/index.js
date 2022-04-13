@@ -13,7 +13,7 @@ const routes = [
   },
 
   {
-    path: "/user/:login",
+    path: "/:login",
     name: "user",
     component: User,
   },
@@ -21,6 +21,7 @@ const routes = [
   {
     path: "*",
     name: "Error",
+    props: true,
     component: Error,
   },
 ];

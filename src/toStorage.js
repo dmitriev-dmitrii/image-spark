@@ -14,7 +14,12 @@ export default {
     const checkSameQuery = (i) => i.queryData.searchQuery === item.queryData.searchQuery && i.queryData.order === item.queryData.order
     const sameQueryIndex = arr.findIndex(checkSameQuery)
     
-    !sameQueryIndex == -1 ? arr[sameQueryIndex] = item : arr.unshift(item)
+    const updateAndPushItem = (i) => { 
+      arr.splice( sameQueryIndex , 1 )
+      arr.unshift(item)
+    }
+
+    sameQueryIndex == -1 ? arr.unshift(item) : updateAndPushItem(item)
 
     if (arr.length > 7) { arr = arr.splice(0,7) }
     // console.log(arr);
