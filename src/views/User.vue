@@ -1,5 +1,8 @@
 <template>
   <div>
+    <router-link class="link" to="/">
+     To home &#10229; 
+    </router-link>
     <app-spinner class="title" v-if="loading">Loading</app-spinner>
     <div v-else >
       <div class="user-data">

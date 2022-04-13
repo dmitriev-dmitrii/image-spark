@@ -2,7 +2,7 @@
   <div class="error">
     <h1 class="title">Error <br>{{ this.$route.params.error }} </h1>
     <router-link class="link" to="/">
-      to home 
+      To home &#10229; 
     </router-link>
   </div>
 </template>
