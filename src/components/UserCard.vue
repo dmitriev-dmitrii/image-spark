@@ -53,6 +53,7 @@ export default {
   &:hover,
   &:focus {
     border: 1px solid $mainAccentColor;
+    background-color: darken($mainAccentColor, 45);
   }
   &__avatar {
     display: inline-block;
