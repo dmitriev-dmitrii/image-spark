@@ -1,8 +1,8 @@
 <template>
   <div class="error">
-    <h1 class="title">Error</h1>
+    <h1 class="title">Error <br>{{ this.$route.params.error }} </h1>
     <router-link class="link" to="/">
-      На Главную
+      to home 
     </router-link>
   </div>
 </template>

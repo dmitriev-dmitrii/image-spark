@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-spiner__wrapper">
     <div class="my-spiner"></div>
     <slot></slot>
   </div>
@@ -11,13 +11,18 @@ export default {};
 
 <style lang="scss">
 .my-spiner {
+  &__wrapper {
+  display: flex;
+  align-items: center;
+  }
   background-color: transparent;
   height: 2rem;
   width: 2rem;
+  margin: .5em;
   display: inline-block;
   border-radius: 50%;
-  border: 0.1em solid rgba(0, 220, 128, 0.1);
-  border-top: 0.1em solid $mainAccentColor;
+  border:2px solid $bgColor2;
+  border-top:2px solid $mainAccentColor;
   animation: spiner 1.2s linear infinite;
 }
 @keyframes spiner {

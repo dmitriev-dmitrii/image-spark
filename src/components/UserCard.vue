@@ -1,13 +1,13 @@
 <template>
   <li class="user-card__wrapper">
-    <router-link :to="`/${user.login}`" class="user-card" :title="`go to ${user.login}`">
-        <img
-          class="user-card__avatar"
-          :src="user.avatar_url"
-          :alt="user.login"
-        />
-        <h3 class="user-card__login ">{{ user.login }}</h3>
-        <p class="user-card__repos"><abbr title="repository count ">repos:</abbr> <span class="user-card__repos-value">&nbsp;222</span></p>
+    <router-link
+      :to="`/user/${user.login}`"
+      class="user-card"
+      :title="`go to ${user.login} page`"
+    >
+      <img class="user-card__avatar" :src="user.avatar_url" :alt="user.login" />
+      <h3 class="user-card__login" v-html="user.login" > </h3>
+      <p class="user-card__repos"><abbr title="repository count ">repos:</abbr> <span class="user-card__repos-value">&nbsp;{{user.public_repos}}</span></p>
     </router-link>
   </li>
 </template>
@@ -17,6 +17,11 @@ export default {
   props: {
     user: {
       type: Object,
+      default :{
+        avatar_url:'',
+        login : '&nbsp;',
+        public_repos:0
+      }
     },
   },
 };
@@ -24,22 +29,21 @@ export default {
 <style lang="scss">
 .user-card {
   &__wrapper {
-    margin: 0.25em;
+    margin: 0.25em 0;
   }
 
-
   display: flex;
-      justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
-flex-direction: column;
+  flex-direction: column;
   gap: 1em;
   padding: 0.5em;
   border: 1px solid currentColor;
   border-radius: $borderRadius;
 
-  @media (min-width: 413.98px){
-flex-direction: row;
-    }
+  @media (min-width: 413.98px) {
+    flex-direction: row;
+  }
 
   &:hover,
   &:focus {
@@ -54,9 +58,8 @@ flex-direction: row;
   &__login {
     text-transform: capitalize;
   }
-  &__repos abbr{
+  &__repos abbr {
     font-weight: bold;
   }
-
 }
 </style>

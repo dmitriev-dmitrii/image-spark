@@ -47,49 +47,47 @@ body {
 		color: $linkTxtColor;
 	}
 }
+.button.primary {
+	background: $mainAccentColor;
+	border: 1.5px solid darken($mainTxtColor, 40);
 
+	&:hover,
+	&:focus {
+		box-shadow: $mainAccentColor 0 0 3px 1px;
+	}
+
+}
 .button {
 	display: inline-block;
 	font-size: 1.5rem;
-	padding: 0.7em 1em;
+	padding: 0.5em 1em;
 	letter-spacing: -0.2px;
 	font-weight: bold;
 	border-radius: $borderRadius;
-	color: $bgColor1;
+
 	align-self: flex-end;
 	cursor: pointer;
 	transition: $transition;
-	background: $mainAccentColor;
+	background-color: $mainTxtColor;
 
 	border: 1.5px solid;
 	box-sizing: border-box;
 
 	&:hover,
 	&:focus {
-		box-shadow: $mainAccentColor 0 0 3px 1px;
+		box-shadow: $mainTxtColor 0 0 3px 1px;
 	}
 
 	&:disabled {
 		cursor: default;
 		opacity: 0.7;
 
-		&:hover {
+		&:hover,&:focus {
 			box-shadow: none;
 		}
 	}
 }
 
-.button.secondary {
-	background: darken($mainAccentColor, 30);
-	color: $mainTxtColor;
-	border: 1.5px solid darken($mainTxtColor, 40);
-	&:hover,
-	&:focus {
-		box-shadow: $mainAccentColor 0 0 3px 1px;
-		background: darken($mainAccentColor, 20);
-	}
-		
-}
 
 .title {
 	color: $titleTxtColor;

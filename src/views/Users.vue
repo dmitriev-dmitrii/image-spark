@@ -1,22 +1,20 @@
 <template>
   <div>
-
-  <search-form/>
-<abbr>Текст</abbr>
-    <app-spinner >Загрузка</app-spinner>
-
-    <p class="title" v-if="usersList.length == 0 ">Список пуст</p>
-  <p class="title">length : {{usersList.length}}</p>
-    <transition-group name="" class="" tag="ul" >
-      <user-card v-for="user in usersList" :key="user.id" :user="user" />
+    <search-form />
+    <p class="title" v-if="users.length == 0">No Data</p>
+  <div v-else>
+    <p class="title" >Finded : {{ totalResults }} &nbsp; Loaded : {{ users.length }}</p>
+    <transition-group name="users-list" class="users-list" tag="ul">
+      <user-card v-for="user in users" :key="user.id" :user="user" />
+      <li key="observer" id="observer" ><app-spinner>Загрузка</app-spinner></li>
     </transition-group>
-
+</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import SearchForm from "@/components/SearchForm.vue";
+
+import SearchForm from "@/components/SearchForm";
 import UserCard from "@/components/UserCard.vue";
 import AppSpinner from "@/components/AppSpinner.vue";
 
@@ -24,10 +22,28 @@ export default {
   components: { SearchForm, UserCard, AppSpinner },
 
   computed: {
-    ...mapGetters({ usersList: "sortedUsersList" }),
+    users : function () { return this.$store.state.users },
+    totalResults : function () { return this.$store.state.totalResults },
+    incompleteResults : function () { return this.$store.state.incompleteResults },
   },
 };
 </script>
 
 <style lang="scss" >
+.users-list {
+margin-top: 1em;
+}
+.users-list-leave-active ,
+.users-list-leave-to
+{
+  transition: all .3s ease;
+  opacity: 0;
+}
+
+#observer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
 </style>

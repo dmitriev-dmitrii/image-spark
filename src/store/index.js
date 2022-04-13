@@ -1,46 +1,78 @@
 import axios from 'axios';
 import Vue from "vue";
 import Vuex from "vuex";
-// import axios from "axios"
+import router from '@/router'
+import toStorage from '@/toStorage'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 
 	state: {
-		usersList: [],
-		sortUsersBy: 'id',
-		dataIsPending: false
-	},
+		users: [],
+		incompleteResults: false,
+		totalResults: 0,
 
-	getters: {
-		sortedUsersList: (state) => {
-			return state.usersList
+		queryData: {
+			searchQuery: "misha",
+			order: 'desc',
+			pageCounter: 0
 		},
 	},
 
 	mutations: {
-		mutateUsersList: (state, dataArr) => {
-			state.usersList = dataArr
+		mutateUsers: (state, dataArr) => {
+			state.users = dataArr
 		},
-		mutateDataIsPending: (state, bolean) => {
-			state.dataIsPending = bolean
+		mutateTotalresults: (state, num) => {
+			state.totalResults = num
+		},
+		mutateIncompleteResults: (state, bolean) => {
+			state.incompleteResults = bolean
+		},
+		mutateQueryData: (state, obj) => {
+			state.queryData = { ...state.queryData, ...obj }
 		},
 	},
 
 	actions: {
-		sendSerachRequest: async (context, serachQuery) => {
+		getUsers: async (context) => {
 			try {
-				context.commit('mutateDataIsPending', true)
-				const req = await axios.get(`https://api.github.com/search/users?q=${serachQuery}`)
-				// 'https://api.github.com/search/issues?q=windows+label:bug+language:python+state:open&sort=created&order=asc'
+				const req =
+					await axios.get(`https://api.github.com/search/users?q=${context.state.queryData.searchQuery}in:login&page=${context.state.queryData.pageCounter + 1}&sort=repositories&order=${context.state.queryData.order}&per_page=10`)
 
-				context.commit('mutateUsersList', [...req.data.items])
+				// console.log(req.data);
+
+
+				let users = req.data.items
+
+				const getUsersData = [...users].map(user => axios.get(`https://api.github.com/users/${user.login}`))
+
+				await Promise.all(getUsersData)
+					.then((responses) => {
+						users = []
+						responses.forEach(item => {
+							users.push(item.data)
+						});
+					})
+
+				// console.log(req.data);
+				context.commit('mutateQueryData', { pageCounter: context.state.queryData.pageCounter + 1 })
+
+				context.state.queryData.pageCounter > 1 ?
+					context.commit('mutateUsers', [...context.state.users, ...users]) :
+					context.commit('mutateUsers', users);
+
+				context.commit('mutateTotalresults', req.data.total_count)
+				context.commit('mutateIncompleteResults', req.data.incomplete_results)
+
+				if (context.state.users.length) { toStorage.addItem({ ...context.state }) }
 			}
 			catch (e) {
 				console.log(e);
-			}
-			finally {
-				context.commit('mutateDataIsPending', false)
+				router.push({
+					name: 'Error',
+					params: { error: e }
+				});
 			}
 
 		},
