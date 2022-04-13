@@ -67,12 +67,12 @@ body {
 
 	align-self: flex-end;
 	cursor: pointer;
-	transition: $transition;
+	
 	background-color: $mainTxtColor;
 
 	border: 1.5px solid;
 	box-sizing: border-box;
-
+	transition: all .3s ease;
 	&:hover,
 	&:focus {
 		box-shadow: $mainTxtColor 0 0 3px 1px;
