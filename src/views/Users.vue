@@ -46,13 +46,11 @@ export default {
     const options = {
       rootMargin: "0px",
       threshold: 1.0,
-      trackVisibility: true,
-      delay: 100,
     };
     const callback = (entries, observer) => {
       // console.log(entries[0].isVisible && entries[0].isIntersecting);
       this.loading=true
-      if (entries[0].isVisible && entries[0].isIntersecting) {
+      if (entries[0].isIntersecting) {
         this.$store.dispatch("getUsers").then(()=> {this.loading=false} )
       }
     };
