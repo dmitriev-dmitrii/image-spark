@@ -7,10 +7,6 @@ export default {
 		loading: true
 	},
 
-	getters: {
-
-	},
-
 	mutations: {
 		mutateLoading: (state, bolean) => {
 			state.loading = bolean
@@ -25,9 +21,9 @@ export default {
 			try {
 				context.commit('mutateLoading', true)
 
-				const req = await axios.get(`https://api.github.com/users/${userLogin}`)
-				context.commit('mutateUserData', req.data)
-				console.log(req);
+				const res = await axios.get(`https://api.github.com/users/${userLogin}`)
+				context.commit('mutateUserData', res.data)
+				console.log(res);
 			}
 			catch (e) {
 				console.log(e);

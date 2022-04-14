@@ -2,7 +2,7 @@ import axios from 'axios';
 import Vue from "vue";
 import Vuex from "vuex";
 import router from '@/router'
-import toStorage from '@/toStorage'
+import toStorage from '@/modules/toStorage'
 import user from '@/store/user'
 Vue.use(Vuex);
 
@@ -46,13 +46,14 @@ export default new Vuex.Store({
 				if (context.state.incompleteResults) {
 					return false
 				}
-				const req =
+			
+				const res =
 					await axios.get(`https://api.github.com/search/users?q=${context.state.queryData.searchQuery}in:login&page=${context.state.queryData.pageCounter + 1}&sort=repositories&order=${context.state.queryData.order}&per_page=10`)
 
-				// console.log(req.data);
+				// console.log(res.data);
 
 
-				let users = req.data.items
+				let users = res.data.items
 
 				const getUsersData = [...users].map(user => axios.get(`https://api.github.com/users/${user.login}`))
 
@@ -64,15 +65,15 @@ export default new Vuex.Store({
 						});
 					})
 
-				// console.log(req.data);
+				// console.log(res.data);
 				context.commit('mutateQueryData', { pageCounter: context.state.queryData.pageCounter + 1 })
 
 				context.state.queryData.pageCounter > 1 ?
 					context.commit('mutateUsers', [...context.state.users, ...users]) :
 					context.commit('mutateUsers', users);
 
-				context.commit('mutateTotalresults', req.data.total_count)
-				context.commit('mutateIncompleteResults', req.data.incomplete_results)
+				context.commit('mutateTotalresults', res.data.total_count)
+				context.commit('mutateIncompleteResults', res.data.incomplete_results)
 
 				if (context.state.users.length) { toStorage.addItem({ ...context.state }) }
 			}

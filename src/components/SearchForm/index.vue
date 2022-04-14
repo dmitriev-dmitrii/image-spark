@@ -36,7 +36,7 @@
 
 <script>
 import SavedSearchList from "./SavedSearchList.vue";
-import toStorage from "@/toStorage";
+import toStorage from "@/modules/toStorage";
 import AppSpinner from "@/components/AppSpinner.vue";
 export default {
   components: { SavedSearchList, AppSpinner },

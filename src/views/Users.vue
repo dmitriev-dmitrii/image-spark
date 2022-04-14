@@ -1,16 +1,20 @@
 <template>
   <div>
     <search-form />
-    <p class="title" v-if="users.length == 0">No Data</p>
+    <p class="title">
+      Finded : {{ totalResults }} &nbsp; Loaded : {{ users.length }}
+    </p>
+
     <div v-show="users.length != 0">
-      <p class="title">
-        Finded : {{ totalResults }} &nbsp; Loaded : {{ users.length }}
-      </p>
       <transition-group name="users-list" class="users-list" tag="ul">
-        <user-card v-for="user in users" :key="user.id+user.login" :user="user" />
+        <user-card
+          v-for="user in users"
+          :key="user.id + user.login"
+          :user="user"
+        />
         <li key="observer" id="observer" class="title" ref="observer">
           <app-spinner v-show="loading">Loading</app-spinner>
-          <p  v-show="users.length == totalResults"> End of data </p>
+          <p v-show="users.length == totalResults">End of data</p>
         </li>
       </transition-group>
     </div>
@@ -24,11 +28,10 @@ import AppSpinner from "@/components/AppSpinner.vue";
 
 export default {
   components: { SearchForm, UserCard, AppSpinner },
-  data:() => {
+  data: () => {
     return {
-      loading:false
-    }
-    
+      loading: false,
+    };
   },
   computed: {
     users: function () {
@@ -49,9 +52,13 @@ export default {
     };
     const callback = (entries, observer) => {
       // console.log(entries[0].isVisible && entries[0].isIntersecting);
-      this.loading=true
       if (entries[0].isIntersecting) {
-        this.$store.dispatch("getUsers").then(()=> {this.loading=false} )
+        this.loading = true;
+        this.$store.dispatch("getUsers").then(() => {
+          this.loading = false;
+          console.log(this);
+          console.log(this.loading);
+        });
       }
     };
     const observer = new IntersectionObserver(callback, options);
@@ -77,6 +84,5 @@ export default {
   align-items: center;
   padding: 1em;
   height: 3em;
-
 }
 </style>
